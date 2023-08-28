@@ -112,6 +112,8 @@ GameObject:
   - component: {fileID: 6647991114341894495}
   - component: {fileID: 6647991114341894491}
   - component: {fileID: 3050070446961866736}
+  - component: {fileID: 7505484555784561417}
+  - component: {fileID: 3619301439768299257}
   m_Layer: 6
   m_Name: Player (solo)
   m_TagString: Untagged
@@ -181,3 +183,33 @@ MonoBehaviour:
   movementSpeed: 4
   groundCastDistance: 1.1
   jumpForce: 9.3
+--- !u!114 &7505484555784561417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6647991114341894494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c37c9bd7d73634a92c06d181c379d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 4584094479735856852}
+  objectLabel: {fileID: 0}
+  castDistance: 2.5
+--- !u!114 &3619301439768299257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6647991114341894494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d85c2672bc03949902abbc837768a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeHighlight: {fileID: 0}
+  playerCamera: {fileID: 4584094479735856852}
+  castDistance: 2.5
