@@ -4,7 +4,6 @@ using UnityEngine;
 public class Door : MonoBehaviour, Interactable
 {
     [SerializeField] private Transform pivot;
-    [SerializeField] private Vector3 closedRotation;
     [SerializeField] private float speed = 3f;
     [SerializeField] private bool openBasedOnPlayer;
 
@@ -17,7 +16,7 @@ public class Door : MonoBehaviour, Interactable
     private void Start()
     {
         _playerCamera = FindObjectOfType<Camera>().transform;
-        _closedRotationQuat = Quaternion.Euler(closedRotation);
+        _closedRotationQuat = transform.rotation;
     }
 
     public void Interact()
@@ -32,10 +31,11 @@ public class Door : MonoBehaviour, Interactable
             {
                 Vector3 dir = (_playerCamera.position - transform.position).normalized;
                 float dot = Vector3.Dot(dir, transform.forward);
-                
+
+                Vector3 eulerAngles = _closedRotationQuat.eulerAngles;
                 StartCoroutine(dot > 0f
-                    ? ToggleDoor(Quaternion.Euler(closedRotation.x, closedRotation.y - 90f, closedRotation.z))
-                    : ToggleDoor(Quaternion.Euler(closedRotation.x, closedRotation.y + 90f, closedRotation.z)));
+                    ? ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y - 90f, eulerAngles.z))
+                    : ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y + 90f, eulerAngles.z)));
             }
 
             _open = true;
