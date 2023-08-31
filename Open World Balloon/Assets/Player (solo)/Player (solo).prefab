@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8136615305081368562}
   - component: {fileID: 8458096702631581925}
   - component: {fileID: 747334691107969342}
+  - component: {fileID: 321319867699100686}
   m_Layer: 0
   m_Name: Player Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +101,21 @@ MonoBehaviour:
   mouseSensitivity: 2
   playerTransform: {fileID: 6647991114341894490}
   invertMouse: 1
+--- !u!114 &321319867699100686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098321636567807619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b06e6851413c0e4ca94eaa735d8fc5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameScene:
+    m_Handle: 0
+  threshold: 100
 --- !u!1 &6647991114341894494
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,6 +130,7 @@ GameObject:
   - component: {fileID: 3050070446961866736}
   - component: {fileID: 7505484555784561417}
   - component: {fileID: 3619301439768299257}
+  - component: {fileID: 3403263555426059623}
   m_Layer: 6
   m_Name: Player (solo)
   m_TagString: Untagged
@@ -164,7 +181,7 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &3050070446961866736
@@ -182,7 +199,7 @@ MonoBehaviour:
   maxMovementSpeed: 8.5
   movementSpeed: 4
   groundCastDistance: 1.1
-  jumpForce: 9.3
+  jumpForce: 3
 --- !u!114 &7505484555784561417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +227,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d85c2672bc03949902abbc837768a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeHighlight: {fileID: 0}
+  highlightColor: {r: 0.5235849, g: 0.880268, b: 1, a: 1}
+  playerCamera: {fileID: 4584094479735856852}
+  castDistance: 2.5
+--- !u!114 &3403263555426059623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6647991114341894494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebe68ac048377f45aa9777981970f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   playerCamera: {fileID: 4584094479735856852}
   castDistance: 2.5

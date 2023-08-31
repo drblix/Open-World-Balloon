@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoloPlayerHighlighter : MonoBehaviour
 {
-    [SerializeField] private GameObject cubeHighlight;
+    private static readonly int ColorProperty = Shader.PropertyToID("_Color");
+
+    [SerializeField] private Color highlightColor;
     [SerializeField] private Transform playerCamera;
     [SerializeField] private float castDistance;
 
-    private Highlightable _currentHighlightable;
-
+    private GameObject _currentObject;
+    private Material _currentMatHighlight, _currentMaterialPrev;
+    
     private int _interactableMask;
 
     private void Awake()
@@ -19,26 +20,51 @@ public class SoloPlayerHighlighter : MonoBehaviour
 
     private void Update()
     {
+        HighlightRaycast();
+    }
+    
+    // 1. check if hovering over highlightable object, if not goto 1a
+    // 2. is the highlightable object a new object?
+    // 3. if a new object, unhighlight previous object, highlight new one
+    // 1a. check if any highlighted object, if so, unhighlight
+    private void HighlightRaycast()
+    {
         Ray ray = new(playerCamera.position, playerCamera.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, castDistance, _interactableMask) && hit.collider.TryGetComponent(out Highlightable highlightableObj))
-            _currentHighlightable = highlightableObj;
-        else
-            _currentHighlightable = null;
-
-        if (_currentHighlightable != null)
+        
+        // looking at a highlightable object
+        if (Physics.Raycast(ray, out RaycastHit hit, castDistance, _interactableMask) && hit.collider.TryGetComponent(out Highlightable highlightableObj) && highlightableObj.highlightable)
         {
-            cubeHighlight.SetActive(true);
-            cubeHighlight.transform.SetParent(_currentHighlightable.transform);
+            // is a new object
+            if (_currentObject != highlightableObj.gameObject)
+            {
+                if (_currentMatHighlight != null && _currentMaterialPrev != null)
+                {
+                    _currentObject.GetComponent<MeshRenderer>().material = _currentMaterialPrev;
+                    Destroy(_currentMatHighlight);
+                }
 
-            cubeHighlight.transform.localPosition = Vector3.zero;
-            cubeHighlight.transform.localRotation = Quaternion.Euler(Vector3.zero);
-            cubeHighlight.transform.localScale = Vector3.one * 1.04f;
+                _currentObject = highlightableObj.gameObject;
+                
+                MeshRenderer meshRenderer = _currentObject.GetComponent<MeshRenderer>();
+                _currentMaterialPrev = meshRenderer.sharedMaterial;
+                _currentMatHighlight = meshRenderer.material;
+                _currentMatHighlight.SetColor(ColorProperty, highlightColor);
+                meshRenderer.material = _currentMatHighlight;
+            }
         }
+        // not looking at any highlightable object
+        // clear any previous objects that are highlighted
         else
         {
-            cubeHighlight.SetActive(false);
-            cubeHighlight.transform.SetParent(null);
+            if (_currentObject != null)
+            {
+                _currentObject.GetComponent<MeshRenderer>().material = _currentMaterialPrev;
+                Destroy(_currentMatHighlight);
+                
+                _currentObject = null;
+                _currentMaterialPrev = null;
+                _currentMatHighlight = null;
+            }
         }
     }
 }

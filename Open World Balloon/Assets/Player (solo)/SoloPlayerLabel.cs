@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -20,9 +18,9 @@ public class SoloPlayerLabel : MonoBehaviour
     {
         Ray ray = new (playerCamera.position, playerCamera.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, castDistance, _interactableMask) && hit.collider.TryGetComponent(out Labeled labeledObj))
+        if (Physics.Raycast(ray, out RaycastHit hit, castDistance, _interactableMask) && hit.collider.TryGetComponent(out Labeled labeledObj) && labeledObj.visible)
         {
-            objectLabel.SetText(labeledObj.GetLabel());
+            objectLabel.SetText(labeledObj.label);
         }
         else
         {
