@@ -8,7 +8,9 @@ public class Door : MonoBehaviour, Interactable
     [SerializeField] private bool openBasedOnPlayer;
 
     private Transform _playerCamera;
-    private Quaternion _closedRotationQuat;
+
+    private Quaternion _startingRotation;
+    // private Quaternion _closedRotationQuat;
     
     private bool _inAnimation = false;
     private bool _open = false;
@@ -16,7 +18,8 @@ public class Door : MonoBehaviour, Interactable
     private void Start()
     {
         _playerCamera = FindObjectOfType<Camera>().transform;
-        _closedRotationQuat = transform.rotation;
+        _startingRotation = pivot.localRotation;
+        // _closedRotationQuat = transform.localRotation;
     }
 
     public void Interact()
@@ -31,11 +34,12 @@ public class Door : MonoBehaviour, Interactable
             {
                 Vector3 dir = (_playerCamera.position - transform.position).normalized;
                 float dot = Vector3.Dot(dir, transform.forward);
-
-                Vector3 eulerAngles = _closedRotationQuat.eulerAngles;
+                
                 StartCoroutine(dot > 0f
-                    ? ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y - 90f, eulerAngles.z))
-                    : ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y + 90f, eulerAngles.z)));
+                    // in front
+                    ? ToggleDoor(_startingRotation * Quaternion.AngleAxis(-90f, Vector3.up)) // ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y - 89f, eulerAngles.z))
+                    // behind
+                    : ToggleDoor(_startingRotation * Quaternion.AngleAxis(90f, Vector3.up))); // ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y + 89f, eulerAngles.z)));
             }
 
             _open = true;
@@ -50,12 +54,13 @@ public class Door : MonoBehaviour, Interactable
     private IEnumerator ToggleDoor(Quaternion? goalRotation)
     {
         _inAnimation = true;
+        
         if (goalRotation != null)
         {
             float timer = 0f;
-            while (pivot.rotation != goalRotation.Value)
+            while (pivot.localRotation != goalRotation.Value)
             {
-                pivot.rotation = Quaternion.Lerp(_closedRotationQuat, goalRotation.Value, timer);
+                pivot.localRotation = Quaternion.Lerp(_startingRotation, goalRotation.Value, timer);
 
                 timer += Time.deltaTime * speed;
                 yield return new WaitForEndOfFrame();
@@ -64,11 +69,11 @@ public class Door : MonoBehaviour, Interactable
         // closing door
         else
         {
-            Quaternion startingRotation = pivot.rotation;
+            Quaternion startingRotation = pivot.localRotation;
             float timer = 0f;
-            while (pivot.rotation != _closedRotationQuat)
+            while (pivot.localRotation != _startingRotation)
             {
-                pivot.rotation = Quaternion.Lerp(startingRotation, _closedRotationQuat, timer);
+                pivot.localRotation = Quaternion.Lerp(startingRotation, _startingRotation, timer);
 
                 timer += Time.deltaTime * speed;
                 yield return new WaitForEndOfFrame();

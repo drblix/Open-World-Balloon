@@ -1,14 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class SoloPlayerMovement : MonoBehaviour
 {
     public static SoloPlayerMovement Singleton;
     
     private Rigidbody _rigidbody;
+    
 
     [SerializeField] private float maxMovementSpeed = 8f;
     [SerializeField] private float movementSpeed = 10f;
@@ -31,6 +28,7 @@ public class SoloPlayerMovement : MonoBehaviour
     {
         Movement();
         Jumping();
+        // SyncWithVelocityBelow();
     }
 
     private void Movement()
@@ -55,7 +53,6 @@ public class SoloPlayerMovement : MonoBehaviour
 
         // Add our force, disregarding the player's mass
         _rigidbody.AddForce(change, ForceMode.VelocityChange);
-        
     }
     
     private void Jumping()
@@ -63,6 +60,20 @@ public class SoloPlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && IsGrounded())
         {
             _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+        }
+    }
+
+    private void SyncWithVelocityBelow()
+    {
+        if (!IsGrounded()) return;
+
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 1.25f) && hit.collider.TryGetComponent(out Rigidbody belowBody))
+        {
+            if (_rigidbody.velocity.sqrMagnitude < belowBody.velocity.sqrMagnitude)
+            {
+                Debug.Log("adding force");
+                _rigidbody.AddForce(belowBody.velocity * 2f, ForceMode.VelocityChange);
+            }
         }
     }
     

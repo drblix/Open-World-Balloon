@@ -24,7 +24,7 @@ public class SoloPlayerCamera : MonoBehaviour
         Singleton = this;
     }
     
-    private void LateUpdate()
+    private void Update()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
@@ -38,7 +38,7 @@ public class SoloPlayerCamera : MonoBehaviour
         
         playerTransform.Rotate(Vector3.up * mouseX);
 
-        Vector3 eulerAngles = transform.eulerAngles;
-        transform.rotation = Quaternion.Euler(_xRotation, eulerAngles.y, eulerAngles.z);
+        // Vector3 eulerAngles = transform.eulerAngles;
+        transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
     }
 }
