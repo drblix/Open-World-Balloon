@@ -1219,7 +1219,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 452445613}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CarryPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4285,7 +4285,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: -0.00000047683713}
 --- !u!1 &1921658160
 GameObject:
@@ -4852,7 +4852,9 @@ GameObject:
   - component: {fileID: 1920195520}
   - component: {fileID: 3469287837784978418}
   - component: {fileID: 3469287837784978417}
-  m_Layer: 0
+  - component: {fileID: 3469287837784978420}
+  - component: {fileID: 3469287837784978419}
+  m_Layer: 7
   m_Name: SmallCrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5108,7 +5110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be9006252696c545a40fc450fe96a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carryPivot: {fileID: 0}
+  carryPivot: {fileID: 452445613}
 --- !u!54 &3469287837784978418
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5125,6 +5127,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3469287837784978419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147854272239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489c8d519b0b38a47af146509dfb7371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: small empty crate
+  visible: 1
+--- !u!114 &3469287837784978420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147854272239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1bfa2cf108c7f04d8838c336263259d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightable: 1
 --- !u!23 &3735826257819623242
 MeshRenderer:
   m_ObjectHideFlags: 0

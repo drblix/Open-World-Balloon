@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoloPlayerHighlighter : MonoBehaviour
@@ -9,7 +11,7 @@ public class SoloPlayerHighlighter : MonoBehaviour
     [SerializeField] private float castDistance;
 
     private GameObject _currentObject;
-    private Material _currentMatHighlight, _currentMaterialPrev;
+    private Material[] _highlightedMaterials, _previousMaterials;
     
     private int _interactableMask;
 
@@ -34,36 +36,45 @@ public class SoloPlayerHighlighter : MonoBehaviour
         // looking at a highlightable object
         if (Physics.Raycast(ray, out RaycastHit hit, castDistance, _interactableMask) && hit.collider.TryGetComponent(out Highlightable highlightableObj) && highlightableObj.highlightable)
         {
-            // is a new object
+            // a new object has been looked at
             if (_currentObject != highlightableObj.gameObject)
             {
-                if (_currentMatHighlight != null && _currentMaterialPrev != null)
-                {
-                    _currentObject.GetComponent<MeshRenderer>().material = _currentMaterialPrev;
-                    Destroy(_currentMatHighlight);
-                }
-
                 _currentObject = highlightableObj.gameObject;
-                
-                MeshRenderer meshRenderer = _currentObject.GetComponent<MeshRenderer>();
-                _currentMaterialPrev = meshRenderer.sharedMaterial;
-                _currentMatHighlight = meshRenderer.material;
-                _currentMatHighlight.SetColor(ColorProperty, highlightColor);
-                meshRenderer.material = _currentMatHighlight;
+
+                // getting an array of our object's materials before being replaced with highlighted versions
+                MeshRenderer renderer = _currentObject.GetComponent<MeshRenderer>();
+                _previousMaterials = renderer.sharedMaterials;
+
+                // getting the object's materials and replacing them with highlighted versions, storing them
+                // in the highlighted materials array
+                Material[] mats = renderer.materials;
+                _highlightedMaterials = new Material[mats.Length];
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    mats[i].SetColor(ColorProperty, highlightColor);
+                    _highlightedMaterials[i] = mats[i];
+                }
             }
         }
         // not looking at any highlightable object
-        // clear any previous objects that are highlighted
+        // destroy all highlight materials associated with previous object
         else
         {
+            // checking if the previous object exists
             if (_currentObject != null)
             {
-                _currentObject.GetComponent<MeshRenderer>().material = _currentMaterialPrev;
-                Destroy(_currentMatHighlight);
+                // if a previous object existed, destroy all highlighted materials that were created
+                // and reassign the object's previous materials
                 
+                MeshRenderer renderer = _currentObject.GetComponent<MeshRenderer>();
+
+                for (int i = 0; i < _highlightedMaterials.Length; i++)
+                    Destroy(_highlightedMaterials[i]);
+
+                renderer.materials = _previousMaterials;
+
+                // clearing object
                 _currentObject = null;
-                _currentMaterialPrev = null;
-                _currentMatHighlight = null;
             }
         }
     }
