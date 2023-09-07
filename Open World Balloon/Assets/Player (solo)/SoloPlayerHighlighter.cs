@@ -39,6 +39,21 @@ public class SoloPlayerHighlighter : MonoBehaviour
             // a new object has been looked at
             if (_currentObject != highlightableObj.gameObject)
             {
+                Debug.Log("new object!");
+
+                if (_currentObject != null)
+                {
+                    MeshRenderer prevRenderer = _currentObject.GetComponent<MeshRenderer>();
+
+                    for (int i = 0; i < _highlightedMaterials.Length; i++)
+                        Destroy(_highlightedMaterials[i]);
+
+                    prevRenderer.materials = _previousMaterials;
+
+                    // clearing object
+                    _currentObject = null;
+                }
+
                 _currentObject = highlightableObj.gameObject;
 
                 // getting an array of our object's materials before being replaced with highlighted versions
@@ -55,6 +70,10 @@ public class SoloPlayerHighlighter : MonoBehaviour
                     _highlightedMaterials[i] = mats[i];
                 }
             }
+            else
+            {
+                Debug.Log("no new object!");
+            }
         }
         // not looking at any highlightable object
         // destroy all highlight materials associated with previous object
@@ -65,7 +84,6 @@ public class SoloPlayerHighlighter : MonoBehaviour
             {
                 // if a previous object existed, destroy all highlighted materials that were created
                 // and reassign the object's previous materials
-                
                 MeshRenderer renderer = _currentObject.GetComponent<MeshRenderer>();
 
                 for (int i = 0; i < _highlightedMaterials.Length; i++)
