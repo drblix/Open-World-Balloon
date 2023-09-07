@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c509dbaa7b6f416409e3195321a2187e, type: 3}
+  m_Name: IslandBase_TerrainProfile
+  m_EditorClassIdentifier: 
+  PaletteLayers:
+  - {fileID: 8574412962073106934, guid: da1480019b0262043879cd55715a6243, type: 2}
+  - {fileID: 8574412962073106934, guid: 36eb1638cb6b7d04f97b6927fe9854ad, type: 2}
+  - {fileID: 8574412962073106934, guid: d238acf362353e847bbccbb102434f4c, type: 2}
+  - {fileID: 8574412962073106934, guid: 6dc04f5a686155a43b769200b2fac8c2, type: 2}
+  - {fileID: 8574412962073106934, guid: 384e7103741dca647abc3e9cb8a8d789, type: 2}
+  - {fileID: 8574412962073106934, guid: dde7f361acf2722488ab7c7a39422a79, type: 2}
