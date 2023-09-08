@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
-  m_Shader: {fileID: 4800000, guid: ac1fcb32c6f71214f8b38e41ff762035, type: 3}
+  m_Name: VerticalFog
+  m_Shader: {fileID: 4800000, guid: d1a433d44747a6a40bd533fe206abd67, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,10 +25,6 @@ Material:
     m_TexEnvs:
     - _BumpMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DepthRampTex:
-        m_Texture: {fileID: 2800000, guid: c6d2a7a68801bc94586f85820db57d28, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -48,15 +44,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 511db8c79e368d5439431dae6cc2767a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: b47aa5f3a8cfc234fac3e207aa41004a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -71,14 +63,12 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DepthFactor: 3.21
     - _DetailNormalMapScale: 1
-    - _DistortStrength: 0.1
     - _DstBlend: 0
-    - _ExtraHeight: -0.52
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _IntersectionThresholdMax: 0.11
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -87,11 +77,8 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WaveAmp: 0.2
-    - _WaveSpeed: 37.69
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.4000089, g: 0.67666245, b: 0.8396226, a: 0.77254903}
-    - _EdgeColor: {r: 0.16300286, g: 0.25753522, b: 0.31132078, a: 0.77254903}
+    - _Color: {r: 0.2971698, g: 0.57033944, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
