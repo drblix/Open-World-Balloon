@@ -7,6 +7,8 @@ public class Door : MonoBehaviour, Interactable
     [SerializeField] private float speed = 3f;
     [SerializeField] private bool openBasedOnPlayer;
 
+    [SerializeField] private Vector3 doorAxis;
+
     private Transform _playerCamera;
 
     private Quaternion _startingRotation;
@@ -37,9 +39,9 @@ public class Door : MonoBehaviour, Interactable
                 
                 StartCoroutine(dot > 0f
                     // in front
-                    ? ToggleDoor(_startingRotation * Quaternion.AngleAxis(-90f, Vector3.up)) // ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y - 89f, eulerAngles.z))
+                    ? ToggleDoor(_startingRotation * Quaternion.AngleAxis(-90f, doorAxis)) // ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y - 89f, eulerAngles.z))
                     // behind
-                    : ToggleDoor(_startingRotation * Quaternion.AngleAxis(90f, Vector3.up))); // ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y + 89f, eulerAngles.z)));
+                    : ToggleDoor(_startingRotation * Quaternion.AngleAxis(90f, doorAxis))); // ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y + 89f, eulerAngles.z)));
             }
 
             _open = true;

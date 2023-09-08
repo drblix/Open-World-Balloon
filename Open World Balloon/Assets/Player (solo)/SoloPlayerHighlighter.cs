@@ -39,8 +39,6 @@ public class SoloPlayerHighlighter : MonoBehaviour
             // a new object has been looked at
             if (_currentObject != highlightableObj.gameObject)
             {
-                Debug.Log("new object!");
-
                 if (_currentObject != null)
                 {
                     MeshRenderer prevRenderer = _currentObject.GetComponent<MeshRenderer>();
@@ -69,10 +67,6 @@ public class SoloPlayerHighlighter : MonoBehaviour
                     mats[i].SetColor(ColorProperty, highlightColor);
                     _highlightedMaterials[i] = mats[i];
                 }
-            }
-            else
-            {
-                Debug.Log("no new object!");
             }
         }
         // not looking at any highlightable object
