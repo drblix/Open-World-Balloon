@@ -7,22 +7,29 @@ public class SoloPlayerFootsteps : MonoBehaviour
 {
     private Terrain _currentTerrain;
     private TerrainData _currentData;
+    private int _terrainMask;
 
     private void Start()
     {
         _currentTerrain = TerrainUtils.GetTerrainClosestToPoint(transform.position);
         _currentData = _currentTerrain.terrainData;
+        _terrainMask = LayerMask.GetMask("Terrain");
         // Debug.Log(_currentData.name);
     }
 
     private void Update()
     {
-        float[] textureMix = GetTextureMixtureAtPosition(transform.position);
-        int maxIndex = MaxInd(textureMix);
+        if (IsGroundedOnTerrain() && SoloPlayerMovement.Singleton.IsMoving())
+        {
+            Debug.Log("on terrain!");
+            float[] textureMix = GetTextureMixtureAtPosition(transform.position);
+            int dominantTerrain = MaxInd(textureMix);
+        }
 
 
-        Debug.Log("Closest terrain: " + TerrainUtils.GetTerrainClosestToPoint(transform.position).name);
-        //Debug.Log("Standing on: " + _currentData.terrainLayers[maxIndex].diffuseTexture.name);
+        // Debug.Log("Closest terrain: " + TerrainUtils.GetTerrainClosestToPoint(transform.position).name);
+        // Debug.Log("Standing on: " + dominantTerrain);
+        // Debug.Log("Standing on: " + _currentData.terrainLayers[maxIndex].diffuseTexture.name);
         
         /*
         Ray ray = new (transform.position, -transform.up);
@@ -69,5 +76,11 @@ public class SoloPlayerFootsteps : MonoBehaviour
         }
 
         return maxIndex;
+    }
+
+    private bool IsGroundedOnTerrain()
+    {
+        Ray ray = new(transform.position, -transform.up);
+        return Physics.Raycast(ray, SoloPlayerMovement.Singleton.groundCastDistance, _terrainMask);
     }
 }

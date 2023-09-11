@@ -5,6 +5,7 @@ public class SoloPlayerMovement : MonoBehaviour
     public static SoloPlayerMovement Singleton;
     
     public float groundCastDistance = .8f;
+    public Terrain currentTerrain;
     
     private Rigidbody _rigidbody;
 
@@ -33,8 +34,6 @@ public class SoloPlayerMovement : MonoBehaviour
 
         Movement();
         Jumping();
-        // SyncWithVelocityBelow();
-
     }
 
     private void Movement()
