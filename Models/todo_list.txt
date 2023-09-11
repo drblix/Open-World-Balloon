@@ -1,0 +1,3 @@
+- model trees
+- model bushes
+- model ruins
