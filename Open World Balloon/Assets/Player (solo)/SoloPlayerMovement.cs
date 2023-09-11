@@ -4,12 +4,12 @@ public class SoloPlayerMovement : MonoBehaviour
 {
     public static SoloPlayerMovement Singleton;
     
-    private Rigidbody _rigidbody;
+    public float groundCastDistance = .8f;
     
+    private Rigidbody _rigidbody;
 
     [SerializeField] private float maxMovementSpeed = 8f;
     [SerializeField] private float movementSpeed = 10f;
-    [SerializeField] private float groundCastDistance = .8f;
     [SerializeField] private float jumpForce = 5f;
 
     private void Awake()
@@ -26,9 +26,15 @@ public class SoloPlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Input.GetKey(KeyCode.LeftShift))
+            movementSpeed = 25f;
+        else
+            movementSpeed = 4f;
+
         Movement();
         Jumping();
         // SyncWithVelocityBelow();
+
     }
 
     private void Movement()
@@ -78,5 +84,5 @@ public class SoloPlayerMovement : MonoBehaviour
     }
     
     public bool IsMoving() => _rigidbody.velocity.sqrMagnitude > 0.1f;
-    private bool IsGrounded() => Physics.Raycast(transform.position, -transform.up, groundCastDistance);
+    public bool IsGrounded() => Physics.Raycast(transform.position, -transform.up, groundCastDistance);
 }

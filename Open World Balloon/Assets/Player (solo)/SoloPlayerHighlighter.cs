@@ -1,17 +1,20 @@
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoloPlayerHighlighter : MonoBehaviour
 {
-    private static readonly int ColorProperty = Shader.PropertyToID("_Color");
+    private static readonly int ColorProperty = Shader.PropertyToID("_BaseColor");
+    private static readonly int EmissionColorProperty = Shader.PropertyToID("_EmissionColor");
 
     [SerializeField] private Color highlightColor;
+    [SerializeField] [ColorUsage(true, true)] private Color emissionColor;
     [SerializeField] private Transform playerCamera;
     [SerializeField] private float castDistance;
 
     private GameObject _currentObject;
     private Material[] _highlightedMaterials, _previousMaterials;
+
+    
     
     private int _interactableMask;
 
@@ -38,19 +41,9 @@ public class SoloPlayerHighlighter : MonoBehaviour
         {
             // a new object has been looked at
             if (_currentObject != highlightableObj.gameObject)
-            {
-                if (_currentObject != null)
-                {
-                    MeshRenderer prevRenderer = _currentObject.GetComponent<MeshRenderer>();
-
-                    for (int i = 0; i < _highlightedMaterials.Length; i++)
-                        Destroy(_highlightedMaterials[i]);
-
-                    prevRenderer.materials = _previousMaterials;
-
-                    // clearing object
-                    _currentObject = null;
-                }
+            {   
+                // destroying previous highlighted materials if an object exists
+                DestroyHighlightedMaterials();
 
                 _currentObject = highlightableObj.gameObject;
 
@@ -65,6 +58,9 @@ public class SoloPlayerHighlighter : MonoBehaviour
                 for (int i = 0; i < mats.Length; i++)
                 {
                     mats[i].SetColor(ColorProperty, highlightColor);
+                    mats[i].SetColor(EmissionColorProperty, emissionColor);
+                    mats[i].EnableKeyword("_EMISSION");
+                    
                     _highlightedMaterials[i] = mats[i];
                 }
             }
@@ -72,22 +68,25 @@ public class SoloPlayerHighlighter : MonoBehaviour
         // not looking at any highlightable object
         // destroy all highlight materials associated with previous object
         else
+            DestroyHighlightedMaterials();
+    }
+
+    private void DestroyHighlightedMaterials()
+    {
+        // checking if the previous object exists
+        if (_currentObject != null)
         {
-            // checking if the previous object exists
-            if (_currentObject != null)
-            {
-                // if a previous object existed, destroy all highlighted materials that were created
-                // and reassign the object's previous materials
-                MeshRenderer renderer = _currentObject.GetComponent<MeshRenderer>();
+            // if a previous object existed, destroy all highlighted materials that were created
+            // and reassign the object's previous materials
+            MeshRenderer renderer = _currentObject.GetComponent<MeshRenderer>();
 
-                for (int i = 0; i < _highlightedMaterials.Length; i++)
-                    Destroy(_highlightedMaterials[i]);
+            for (int i = 0; i < _highlightedMaterials.Length; i++)
+                Destroy(_highlightedMaterials[i]);
 
-                renderer.materials = _previousMaterials;
+            renderer.materials = _previousMaterials;
 
-                // clearing object
-                _currentObject = null;
-            }
+            // clearing object
+            _currentObject = null;
         }
     }
 }

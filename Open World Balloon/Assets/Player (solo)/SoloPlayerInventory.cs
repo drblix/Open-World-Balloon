@@ -7,12 +7,20 @@ public class SoloPlayerInventory : MonoBehaviour
     
     private Carryable _currentCarryable;
 
+    private Rigidbody _rigidbody;
+
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
 
     private void Update()
     {
         Ray ray = new (SoloPlayerCamera.Singleton.transform.position, SoloPlayerCamera.Singleton.transform.forward);
         
         // player can only drop item if not hovering over interactable
+        //Debug.Log($"1: {_currentCarryable != null} 2: {Input.GetMouseButtonDown(0)} 3: {!Physics.Raycast(ray, castDistance, SoloPlayerInteraction.Singleton.interactableMask)}");
+        
         if (_currentCarryable != null && Input.GetMouseButtonDown(0) && !Physics.Raycast(ray, castDistance, SoloPlayerInteraction.Singleton.interactableMask))
         {
             // casts a box to check if user is trying to place item in object
@@ -32,6 +40,8 @@ public class SoloPlayerInventory : MonoBehaviour
             
             _currentCarryable.transform.SetParent(null);
 
+            _currentCarryable.GetComponent<Rigidbody>().AddForce(_rigidbody.velocity, ForceMode.VelocityChange);
+
             _currentCarryable = null;
         }
         else if (_currentCarryable == null && Input.GetMouseButtonDown(1) && Physics.Raycast(ray, out RaycastHit hit, castDistance, SoloPlayerInteraction.Singleton.interactableMask))
@@ -47,8 +57,8 @@ public class SoloPlayerInventory : MonoBehaviour
                 
                 carryable.transform.SetParent(transform);
 
-                carryable.transform.localPosition = carryLocation.localPosition - carryable.carryPivot.localPosition;
                 carryable.transform.localRotation = Quaternion.Euler(Vector3.zero);
+                carryable.transform.localPosition = carryLocation.localPosition + carryable.carryOffset;
 
                 _currentCarryable = carryable;
             }

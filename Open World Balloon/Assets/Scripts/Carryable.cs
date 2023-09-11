@@ -3,5 +3,5 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Carryable : MonoBehaviour
 {
-    public Transform carryPivot;
+    public Vector3 carryOffset;
 }
