@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public static class TerrainUtils
@@ -18,10 +14,13 @@ public static class TerrainUtils
         foreach (Terrain terrain in activeTerrains)
         {
             float thisDistance = (terrain.GetCenterPosition() - point).sqrMagnitude;
+            //Debug.Log(terrain.name + " : " + thisDistance);
             if (thisDistance < shortestDistance)
             {
                 closestTerrain = terrain;
                 shortestDistance = thisDistance;
+
+                if (shortestDistance < 262140f) break;
             }
         }
 

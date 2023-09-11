@@ -1,18 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Door : MonoBehaviour, Interactable
 {
     [SerializeField] private Transform pivot;
     [SerializeField] private float speed = 3f;
     [SerializeField] private bool openBasedOnPlayer;
-
-    [SerializeField] private Vector3 doorAxis;
+    [SerializeField] private Vector3 rotationAxis;
+    [SerializeField] private AudioClip openNoise;
 
     private Transform _playerCamera;
-
     private Quaternion _startingRotation;
-    // private Quaternion _closedRotationQuat;
+    private AudioSource _doorSource;
     
     private bool _inAnimation = false;
     private bool _open = false;
@@ -20,13 +20,16 @@ public class Door : MonoBehaviour, Interactable
     private void Start()
     {
         _playerCamera = FindObjectOfType<Camera>().transform;
+        _doorSource = GetComponent<AudioSource>();
         _startingRotation = pivot.localRotation;
-        // _closedRotationQuat = transform.localRotation;
+        _doorSource.clip = openNoise;
     }
 
     public void Interact()
     {
         if (_inAnimation) return;
+
+        _doorSource.Play();
         
         if (!_open)
         {
@@ -39,9 +42,9 @@ public class Door : MonoBehaviour, Interactable
                 
                 StartCoroutine(dot > 0f
                     // in front
-                    ? ToggleDoor(_startingRotation * Quaternion.AngleAxis(-90f, doorAxis)) // ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y - 89f, eulerAngles.z))
+                    ? ToggleDoor(_startingRotation * Quaternion.AngleAxis(-90f, rotationAxis))
                     // behind
-                    : ToggleDoor(_startingRotation * Quaternion.AngleAxis(90f, doorAxis))); // ToggleDoor(Quaternion.Euler(eulerAngles.x, eulerAngles.y + 89f, eulerAngles.z)));
+                    : ToggleDoor(_startingRotation * Quaternion.AngleAxis(90f, rotationAxis)));
             }
 
             _open = true;

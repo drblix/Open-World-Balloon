@@ -20,9 +20,10 @@ public class SoloPlayerFootsteps : MonoBehaviour
         float[] textureMix = GetTextureMixtureAtPosition(transform.position);
         int maxIndex = MaxInd(textureMix);
 
-        Debug.Log("Closest terrain: " + TerrainUtils.GetTerrainClosestToPoint(transform.position).name);
 
-        // Debug.Log(_currentData.terrainLayers[maxIndex].diffuseTexture.name);
+        Debug.Log("Closest terrain: " + TerrainUtils.GetTerrainClosestToPoint(transform.position).name);
+        //Debug.Log("Standing on: " + _currentData.terrainLayers[maxIndex].diffuseTexture.name);
+        
         /*
         Ray ray = new (transform.position, -transform.up);
         if (SoloPlayerMovement.Singleton.IsMoving() && Physics.Raycast(ray, out RaycastHit hit, SoloPlayerMovement.Singleton.groundCastDistance))
@@ -48,12 +49,6 @@ public class SoloPlayerFootsteps : MonoBehaviour
         Vector3 terrainPosition = _currentTerrain.GetPosition();
         int mapX = Mathf.FloorToInt((worldPosition.x - terrainPosition.x) / _currentData.size.x * _currentData.alphamapWidth);
         int mapY = Mathf.FloorToInt((worldPosition.z - terrainPosition.z) / _currentData.size.z * _currentData.alphamapHeight);
-        /*
-        Vector3 terrainPosition = worldPosition - Terrain.activeTerrain.transform.position;
-        Vector2 mapPosition = new (terrainPosition.x / _currentData.size.x, terrainPosition.z / _currentData.size.z);
-        int mapX = (int)mapPosition.x * _currentData.alphamapWidth;
-        int mapY = (int)mapPosition.y * _currentData.alphamapHeight;
-        */
 
         float[,,] splatmap = _currentData.GetAlphamaps(mapX, mapY, 1, 1);
         float[] textureMixtures = new float[splatmap.GetUpperBound(2) + 1];

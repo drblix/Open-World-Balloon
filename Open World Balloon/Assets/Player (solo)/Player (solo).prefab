@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightColor: {r: 0.5235849, g: 0.880268, b: 1, a: 1}
-  emissionColor: {r: 0.14080162, g: 0.23536988, b: 0.26794338, a: 1}
+  emissionColor: {r: 0.22628158, g: 0.37496662, b: 0.4245283, a: 1}
   playerCamera: {fileID: 4584094479735856852}
   castDistance: 2.5
 --- !u!114 &3403263555426059623
