@@ -7,7 +7,7 @@ public class SoloPlayerInteraction : MonoBehaviour
     [SerializeField] private Transform playerCamera;
     [SerializeField] private float castDistance = 2.5f;
 
-    public int interactableMask;
+    [HideInInspector] public int interactableMask;
 
     private void Awake()
     {

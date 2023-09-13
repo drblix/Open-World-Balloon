@@ -4,4 +4,5 @@ using UnityEngine;
 public class Carryable : MonoBehaviour
 {
     public Vector3 carryOffset;
+    public AudioSource carrySource;
 }
