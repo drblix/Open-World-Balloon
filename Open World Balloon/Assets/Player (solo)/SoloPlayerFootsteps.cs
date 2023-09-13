@@ -1,35 +1,79 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoloPlayerFootsteps : MonoBehaviour
 {
+    [SerializeField] private AudioSource footstepSource;
+
+    [SerializeField] private AudioClip[] grassSounds, woodSounds;
+
+    [SerializeField] [Tooltip("Minimum time that must pass before another footstep can be played")] private float minimumWait = .2f;
+
     private Terrain _currentTerrain;
     private TerrainData _currentData;
     private int _terrainMask;
+
+    private Steppable.Material _belowMaterial;
+
+    private float _stepTimer = 0f;
 
     private void Start()
     {
         _currentTerrain = TerrainUtils.GetTerrainClosestToPoint(transform.position);
         _currentData = _currentTerrain.terrainData;
         _terrainMask = LayerMask.GetMask("Terrain");
-        // Debug.Log(_currentData.name);
     }
 
     private void Update()
     {
-        if (IsGroundedOnTerrain() && SoloPlayerMovement.Singleton.IsMoving())
+        if (_stepTimer < minimumWait) _stepTimer += Time.deltaTime;
+
+        // player must be on ground and moving
+        if (!SoloPlayerMovement.Singleton.IsMoving() || !SoloPlayerMovement.Singleton.IsGrounded()) return;
+        
+        GameObject belowObj = SoloPlayerMovement.Singleton.GetGameObjectBelow();
+        if (belowObj != null && belowObj.TryGetComponent(out Steppable steppable))
         {
-            Debug.Log("on terrain!");
-            float[] textureMix = GetTextureMixtureAtPosition(transform.position);
-            int dominantTerrain = MaxInd(textureMix);
+            if (steppable.isTerrain)
+            {
+                int dominantTerrain = MaxInd(GetTextureMixtureAtPosition(transform.position));
+                _belowMaterial = (Steppable.Material) dominantTerrain;
+            }
+            else
+                _belowMaterial = steppable.material;
+        }
+        else return;
+
+        AudioClip[] clips = new AudioClip[0];
+        switch (_belowMaterial)
+        {
+            case Steppable.Material.Grass:
+                clips = grassSounds;
+                break;
+            case Steppable.Material.Rock:
+                clips = grassSounds;
+                break;
+            case Steppable.Material.Sand:
+                clips = grassSounds;
+                break;
+            case Steppable.Material.Wood:
+                clips = woodSounds;
+                break;
+            default:
+                clips = grassSounds;
+                break;
         }
 
+        AudioClip randClip = clips[Random.Range(0, clips.Length)];
 
-        // Debug.Log("Closest terrain: " + TerrainUtils.GetTerrainClosestToPoint(transform.position).name);
-        // Debug.Log("Standing on: " + dominantTerrain);
-        // Debug.Log("Standing on: " + _currentData.terrainLayers[maxIndex].diffuseTexture.name);
+        if (!footstepSource.isPlaying && _stepTimer > minimumWait)
+        {
+            footstepSource.clip = randClip;
+            footstepSource.Play();
+
+            _stepTimer = 0f;
+        }
+
+        // Debug.Log("Standing on: " + _belowMaterial.ToString());
         
         /*
         Ray ray = new (transform.position, -transform.up);

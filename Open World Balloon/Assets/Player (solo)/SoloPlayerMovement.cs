@@ -5,7 +5,6 @@ public class SoloPlayerMovement : MonoBehaviour
     public static SoloPlayerMovement Singleton;
     
     public float groundCastDistance = .8f;
-    public Terrain currentTerrain;
     
     private Rigidbody _rigidbody;
 
@@ -84,4 +83,10 @@ public class SoloPlayerMovement : MonoBehaviour
     
     public bool IsMoving() => _rigidbody.velocity.sqrMagnitude > 0.1f;
     public bool IsGrounded() => Physics.Raycast(transform.position, -transform.up, groundCastDistance);
+
+    public GameObject GetGameObjectBelow()
+    {
+        bool hit = Physics.Raycast(transform.position, -transform.up, out RaycastHit obj, groundCastDistance);
+        return hit ? obj.collider.gameObject : null;
+    }
 }

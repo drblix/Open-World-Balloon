@@ -1,5 +1,133 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1871985784525684169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2910271682394448254}
+  - component: {fileID: 5458286906958444378}
+  m_Layer: 6
+  m_Name: FootstepSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2910271682394448254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871985784525684169}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6647991114341894490}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &5458286906958444378
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871985784525684169}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.55
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 1
+  MaxDistance: 5
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4098321636567807619
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +345,7 @@ Transform:
   m_Children:
   - {fileID: 4584094479735856852}
   - {fileID: 5749337105727731679}
+  - {fileID: 2910271682394448254}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -338,3 +467,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4ea3f20ac7c0245ad6e2142f4a6673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  footstepSource: {fileID: 5458286906958444378}
+  grassSounds:
+  - {fileID: 8300000, guid: cb8e28ef7ce7b1342803177cc06d4607, type: 3}
+  - {fileID: 8300000, guid: 39d0f659836d12f4da1daf21ec1b1310, type: 3}
+  - {fileID: 8300000, guid: 1333ca5e39b49344abea860e285629c4, type: 3}
+  - {fileID: 8300000, guid: 4cd81484ed675b4438256b0bb4e29a80, type: 3}
+  - {fileID: 8300000, guid: 9b03fc205d8e5964c9eafac1ed291a3c, type: 3}
+  - {fileID: 8300000, guid: 4ba34aa7ebf8c554b8cca92a5c47aa4b, type: 3}
+  - {fileID: 8300000, guid: 872954aeabd900242811d77f860fa44f, type: 3}
+  - {fileID: 8300000, guid: 85ce64dee63869c4eb25e1714196943b, type: 3}
+  woodSounds:
+  - {fileID: 8300000, guid: 4f5cf6111f7050248977a038ab0d3f73, type: 3}
+  - {fileID: 8300000, guid: 56a957604b7052140b65604fcf20ff16, type: 3}
+  - {fileID: 8300000, guid: 3d6f4353e279fcf44acbbe81684426b5, type: 3}
+  - {fileID: 8300000, guid: e54127fbf76ccf64780d1c301d471bb7, type: 3}
+  - {fileID: 8300000, guid: 4b55312b5b37944418b25e3669c85419, type: 3}
+  - {fileID: 8300000, guid: c207e304e7401cb4c93f0b7300bf5b21, type: 3}
+  - {fileID: 8300000, guid: 7754e00746646204698d696f638f5518, type: 3}
+  minimumWait: 0.5

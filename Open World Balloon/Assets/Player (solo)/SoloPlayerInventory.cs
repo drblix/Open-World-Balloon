@@ -23,6 +23,9 @@ public class SoloPlayerInventory : MonoBehaviour
         
         if (_currentCarryable != null && Input.GetMouseButtonDown(0) && !Physics.Raycast(ray, castDistance, SoloPlayerInteraction.Singleton.interactableMask))
         {
+            // going to need a special behaviour check for things that can be mounted on the balloon
+            // plan to add a burner, compass, and maybe some other misc. things; all of which will be mountable
+
             // casts a box to check if user is trying to place item in object
             bool insideObject = Physics.CheckBox(_currentCarryable.transform.position,
                 _currentCarryable.transform.localScale / 2f,
@@ -36,11 +39,13 @@ public class SoloPlayerInventory : MonoBehaviour
             carryableBody.isKinematic = false;
             carryableBody.useGravity = true;
 
-            _currentCarryable.GetComponent<Collider>().enabled = true;
-            
             _currentCarryable.transform.SetParent(null);
 
+            _currentCarryable.GetComponent<Collider>().enabled = true;
             _currentCarryable.GetComponent<Rigidbody>().AddForce(_rigidbody.velocity, ForceMode.VelocityChange);
+
+            if (_currentCarryable.carrySource != null)
+                _currentCarryable.carrySource.Play();
 
             _currentCarryable = null;
         }
@@ -61,6 +66,9 @@ public class SoloPlayerInventory : MonoBehaviour
                 carryable.transform.localPosition = carryLocation.localPosition + carryable.carryOffset;
 
                 _currentCarryable = carryable;
+
+                if (_currentCarryable.carrySource != null)
+                    _currentCarryable.carrySource.Play();
             }
         }
     }
