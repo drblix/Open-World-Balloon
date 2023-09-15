@@ -3,22 +3,15 @@ using TMPro;
 
 public class SoloPlayerLabel : MonoBehaviour
 {
-    [SerializeField] private Transform playerCamera;
     [SerializeField] private TextMeshProUGUI objectLabel;
-    [SerializeField] private float castDistance = 2.5f;
-
-    private int _interactableMask;
-
-    private void Awake()
-    {
-        _interactableMask = LayerMask.GetMask("Interactable");
-    }
 
     private void Update()
     {
-        Ray ray = new (playerCamera.position, playerCamera.forward);
+        //Ray ray = new (playerCamera.position, playerCamera.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, castDistance, _interactableMask) && hit.collider.TryGetComponent(out Labeled labeledObj) && labeledObj.visible)
+        //if (Physics.Raycast(ray, out RaycastHit hit, castDistance, _interactableMask) && hit.collider.TryGetComponent(out Labeled labeledObj) && labeledObj.visible)
+        SoloPlayerRaycaster.PlayerRaycast playerRaycastData = SoloPlayerRaycaster.Singleton.GetPlayerRaycastInfo();
+        if (playerRaycastData.HitThisFrame && playerRaycastData.TryGetComponentFromHit(out Labeled labeledObj) && labeledObj.visible)
         {
             objectLabel.SetText(labeledObj.label);
         }

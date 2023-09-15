@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 3403263555426059623}
   - component: {fileID: 3265041701387983152}
   - component: {fileID: 6031696415971574385}
+  - component: {fileID: 6007169752242073418}
   m_Layer: 6
   m_Name: Player (solo)
   m_TagString: Player
@@ -486,3 +487,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c207e304e7401cb4c93f0b7300bf5b21, type: 3}
   - {fileID: 8300000, guid: 7754e00746646204698d696f638f5518, type: 3}
   minimumWait: 0.5
+--- !u!114 &6007169752242073418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6647991114341894494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e08eb1842e4914aaba83ab2aee4faa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 4584094479735856852}
+  castDistance: 2.5

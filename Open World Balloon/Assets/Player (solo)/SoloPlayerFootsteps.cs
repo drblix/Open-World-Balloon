@@ -65,7 +65,7 @@ public class SoloPlayerFootsteps : MonoBehaviour
 
         AudioClip randClip = clips[Random.Range(0, clips.Length)];
 
-        if (!footstepSource.isPlaying && _stepTimer > minimumWait)
+        if (_stepTimer > minimumWait)
         {
             footstepSource.clip = randClip;
             footstepSource.Play();
