@@ -3,7 +3,6 @@ using UnityEngine;
 public class SoloPlayerInventory : MonoBehaviour
 {
     [SerializeField] private Transform carryLocation;
-    [SerializeField] private float castDistance = 2.5f;
     
     private Carryable _currentCarryable;
 
@@ -16,12 +15,11 @@ public class SoloPlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = new (SoloPlayerCamera.Singleton.transform.position, SoloPlayerCamera.Singleton.transform.forward);
+        //Ray ray = new (SoloPlayerCamera.Singleton.transform.position, SoloPlayerCamera.Singleton.transform.forward);
         
         // player can only drop item if not hovering over interactable
-        //Debug.Log($"1: {_currentCarryable != null} 2: {Input.GetMouseButtonDown(0)} 3: {!Physics.Raycast(ray, castDistance, SoloPlayerInteraction.Singleton.interactableMask)}");
-        
-        if (_currentCarryable != null && Input.GetMouseButtonDown(0) && !Physics.Raycast(ray, castDistance, SoloPlayerInteraction.Singleton.interactableMask))
+        SoloPlayerRaycaster.PlayerRaycast playerRaycastInfo = SoloPlayerRaycaster.Singleton.GetPlayerRaycastInfo();
+        if (_currentCarryable != null && Input.GetMouseButtonDown(0) && !playerRaycastInfo.HitThisFrame /*!Physics.Raycast(ray, castDistance, SoloPlayerInteraction.Singleton.interactableMask)*/)
         {
             // going to need a special behaviour check for things that can be mounted on the balloon
             // plan to add a burner, compass, and maybe some other misc. things; all of which will be mountable
@@ -45,13 +43,18 @@ public class SoloPlayerInventory : MonoBehaviour
             _currentCarryable.GetComponent<Rigidbody>().AddForce(_rigidbody.velocity, ForceMode.VelocityChange);
 
             if (_currentCarryable.carrySource != null)
+            {
+                _currentCarryable.carrySource.clip = _currentCarryable.carryClip;
+                _currentCarryable.carrySource.volume = 1f;
                 _currentCarryable.carrySource.Play();
+            }
 
             _currentCarryable = null;
         }
-        else if (_currentCarryable == null && Input.GetMouseButtonDown(1) && Physics.Raycast(ray, out RaycastHit hit, castDistance, SoloPlayerInteraction.Singleton.interactableMask))
+        else if (_currentCarryable == null && Input.GetMouseButtonDown(1) && playerRaycastInfo.HitThisFrame /*Physics.Raycast(ray, out RaycastHit hit, castDistance, SoloPlayerInteraction.Singleton.interactableMask)*/)
         {
-            if (hit.collider.TryGetComponent(out Carryable carryable))
+            //if (hit.collider.TryGetComponent(out Carryable carryable))
+            if (playerRaycastInfo.TryGetComponentFromHit(out Carryable carryable))
             {
                 // pick up item on ground
                 Rigidbody carryableBody = carryable.GetComponent<Rigidbody>();
@@ -68,7 +71,11 @@ public class SoloPlayerInventory : MonoBehaviour
                 _currentCarryable = carryable;
 
                 if (_currentCarryable.carrySource != null)
+                {
+                    _currentCarryable.carrySource.clip = _currentCarryable.carryClip;
+                    _currentCarryable.carrySource.volume = 1f;
                     _currentCarryable.carrySource.Play();
+                }
             }
         }
     }
