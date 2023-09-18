@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour, Interactable
 {
     [SerializeField] private Transform pivot;
-    [SerializeField] private float speed = 3f;
+    [SerializeField] private float speed = 3f, rotationAmount = 90f;
     [SerializeField] private bool openBasedOnPlayer;
     [SerializeField] private Vector3 rotationAxis;
     [SerializeField] private AudioClip openNoise;
@@ -42,9 +42,13 @@ public class Door : MonoBehaviour, Interactable
                 
                 StartCoroutine(dot > 0f
                     // in front
-                    ? ToggleDoor(_startingRotation * Quaternion.AngleAxis(-90f, rotationAxis))
+                    ? ToggleDoor(_startingRotation * Quaternion.AngleAxis(-rotationAmount, rotationAxis))
                     // behind
-                    : ToggleDoor(_startingRotation * Quaternion.AngleAxis(90f, rotationAxis)));
+                    : ToggleDoor(_startingRotation * Quaternion.AngleAxis(rotationAmount, rotationAxis)));
+            }
+            else
+            {
+                StartCoroutine(ToggleDoor(_startingRotation * Quaternion.AngleAxis(rotationAmount, rotationAxis)));
             }
 
             _open = true;

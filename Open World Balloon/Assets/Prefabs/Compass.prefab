@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   northPoleLocation: {x: 0, y: 0, z: 50000}
-  rotationSpeed: 5
+  rotationSpeed: 15
 --- !u!1 &6988411434748558110
 GameObject:
   m_ObjectHideFlags: 0
