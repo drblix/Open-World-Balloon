@@ -30,7 +30,9 @@ public class SoloPlayerFootsteps : MonoBehaviour
         // player must be on ground and moving
         if (!SoloPlayerMovement.Singleton.IsMoving() || !SoloPlayerMovement.Singleton.IsGrounded()) return;
         
-        GameObject belowObj = SoloPlayerMovement.Singleton.GetGameObjectBelow();
+        if (!Physics.Raycast(transform.position, -transform.up, out RaycastHit hitInfo, 4f, ~(1 << 8), QueryTriggerInteraction.Ignore)) return;
+        GameObject belowObj = hitInfo.collider.gameObject;
+
         if (belowObj != null && belowObj.TryGetComponent(out Steppable steppable))
         {
             if (steppable.isTerrain)

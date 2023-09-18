@@ -197,7 +197,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: e902eff80236d224b91b4a9822fb324a, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -423,8 +423,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightColor: {r: 0.5235849, g: 0.880268, b: 1, a: 1}
   emissionColor: {r: 0.22628158, g: 0.37496662, b: 0.4245283, a: 1}
-  playerCamera: {fileID: 4584094479735856852}
-  castDistance: 2.5
 --- !u!114 &3403263555426059623
 MonoBehaviour:
   m_ObjectHideFlags: 0

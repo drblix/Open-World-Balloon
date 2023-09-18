@@ -11,7 +11,8 @@ public class CompassNeedle : MonoBehaviour
         float z = northPoleLocation.z - transform.position.z;
         Quaternion goalRotation = Quaternion.Euler(0f, Mathf.Atan2(x, z) * Mathf.Rad2Deg, 0f);
 
-        transform.rotation = goalRotation;
-        transform.localRotation = Quaternion.Euler(0f, transform.localEulerAngles.y, 0f);
+        Quaternion localRotation = Quaternion.Inverse(transform.parent.rotation) * goalRotation;
+        Quaternion slerpedRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(0f, localRotation.eulerAngles.y, 0f), Time.deltaTime * rotationSpeed);
+        transform.localRotation = slerpedRotation;
     }
 }
