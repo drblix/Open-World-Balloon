@@ -14,7 +14,6 @@ public static class TerrainUtils
         foreach (Terrain terrain in activeTerrains)
         {
             float thisDistance = (terrain.GetCenterPosition() - point).sqrMagnitude;
-            //Debug.Log(terrain.name + " : " + thisDistance);
             if (thisDistance < shortestDistance)
             {
                 closestTerrain = terrain;

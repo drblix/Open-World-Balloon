@@ -135,6 +135,7 @@ MonoBehaviour:
   carryOffset: {x: 0, y: 0, z: 1}
   carrySource: {fileID: 3139934914963881987}
   carryClip: {fileID: 8300000, guid: 72bcd0a78be92c742a97450906072149, type: 3}
+  isMountable: 0
 --- !u!114 &1973666339091454464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightable: 1
+  renderer: {fileID: 4361499148267155150}
 --- !u!114 &3537546643531410539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,9 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7dd1bc3ffb6e14daf26fc240bae4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundThreshold: 0
+  soundThreshold: 4
   timerThreshold: 0.75
-  impactClip: {fileID: 0}
+  impactClip: {fileID: 8300000, guid: 83a8d6171e10f6f44b153a48e4251d40, type: 3}
   _impactTimer: 0
 --- !u!114 &1973666339091454471
 MonoBehaviour:

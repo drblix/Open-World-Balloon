@@ -82,7 +82,7 @@ public class SoloPlayerMovement : MonoBehaviour
     }
     
     public bool IsMoving() => _rigidbody.velocity.sqrMagnitude > 0.1f;
-    public bool IsGrounded() => Physics.Raycast(transform.position, -transform.up, groundCastDistance);
+    public bool IsGrounded() => Physics.Raycast(transform.position, -transform.up, groundCastDistance, ~(1 << 9), QueryTriggerInteraction.Ignore);
 
     public GameObject GetGameObjectBelow()
     {

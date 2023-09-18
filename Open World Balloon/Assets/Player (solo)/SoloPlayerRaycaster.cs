@@ -134,7 +134,10 @@ public class SoloPlayerRaycaster : MonoBehaviour
         {
             get
             {
-                return _raycastHit.collider.gameObject;
+                if (_raycastHit.collider)
+                    return _raycastHit.collider.gameObject;
+                else
+                    return null;
             }
         }
 
@@ -151,6 +154,13 @@ public class SoloPlayerRaycaster : MonoBehaviour
 
         public bool TryGetComponentFromHit<T>(out T comp)
         {
+            if (!HitThisFrame || HitGameObject == null)
+            {
+                Debug.LogWarning("attempted to get component from a null object");
+                comp = default;
+                return false;
+            }
+
             if (HitGameObject.TryGetComponent(out T component))
             {
                 comp = component;

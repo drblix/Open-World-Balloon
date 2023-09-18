@@ -408,9 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c37c9bd7d73634a92c06d181c379d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 4584094479735856852}
   objectLabel: {fileID: 0}
-  castDistance: 2.5
 --- !u!114 &3619301439768299257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,8 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebe68ac048377f45aa9777981970f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 4584094479735856852}
-  castDistance: 2.5
   interactableMask: 0
 --- !u!114 &3265041701387983152
 MonoBehaviour:
@@ -455,7 +451,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carryLocation: {fileID: 5749337105727731679}
-  castDistance: 2.5
 --- !u!114 &6031696415971574385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,4 +495,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 4584094479735856852}
-  castDistance: 2.5
+  castDistance: 3.25

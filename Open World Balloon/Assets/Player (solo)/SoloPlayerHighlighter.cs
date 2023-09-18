@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoloPlayerHighlighter : MonoBehaviour
@@ -8,8 +7,6 @@ public class SoloPlayerHighlighter : MonoBehaviour
 
     [SerializeField] private Color highlightColor;
     [SerializeField] [ColorUsage(true, true)] private Color emissionColor;
-    [SerializeField] private Transform playerCamera;
-    [SerializeField] private float castDistance;
 
     private GameObject _currentObject;
     private Material[] _highlightedMaterials, _previousMaterials;
@@ -41,7 +38,7 @@ public class SoloPlayerHighlighter : MonoBehaviour
                 _currentObject = highlightableObj.gameObject;
 
                 // getting an array of our object's materials before being replaced with highlighted versions
-                MeshRenderer renderer = _currentObject.GetComponent<MeshRenderer>();
+                MeshRenderer renderer = highlightableObj.renderer;
                 _previousMaterials = renderer.sharedMaterials;
 
                 // getting the object's materials and replacing them with highlighted versions, storing them
@@ -71,7 +68,7 @@ public class SoloPlayerHighlighter : MonoBehaviour
         {
             // if a previous object existed, destroy all highlighted materials that were created
             // and reassign the object's previous materials
-            MeshRenderer renderer = _currentObject.GetComponent<MeshRenderer>();
+            MeshRenderer renderer = _currentObject.GetComponent<Highlightable>().renderer;
 
             for (int i = 0; i < _highlightedMaterials.Length; i++)
                 Destroy(_highlightedMaterials[i]);
