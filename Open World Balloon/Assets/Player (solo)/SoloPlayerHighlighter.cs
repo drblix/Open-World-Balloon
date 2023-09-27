@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class SoloPlayerHighlighter : MonoBehaviour
 {
-    private static readonly int ColorProperty = Shader.PropertyToID("_BaseColor");
+    private static readonly int ColorProperty = Shader.PropertyToID("_Color");
+    // private static readonly int ColorProperty = Shader.PropertyToID("_BaseColor");
     private static readonly int EmissionColorProperty = Shader.PropertyToID("_EmissionColor");
 
     [SerializeField] private Color highlightColor;
@@ -48,8 +49,8 @@ public class SoloPlayerHighlighter : MonoBehaviour
                 for (int i = 0; i < mats.Length; i++)
                 {
                     mats[i].SetColor(ColorProperty, highlightColor);
-                    mats[i].SetColor(EmissionColorProperty, emissionColor);
-                    mats[i].EnableKeyword("_EMISSION");
+                    //mats[i].SetColor(EmissionColorProperty, emissionColor);
+                    //mats[i].EnableKeyword("_EMISSION");
                     
                     _highlightedMaterials[i] = mats[i];
                 }
